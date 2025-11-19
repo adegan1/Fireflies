@@ -1,11 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ba7e71pmk8yym"]
 
-[ext_resource type="Texture2D" uid="uid://b35s5vr3oljqw" path="res://Art/icon.svg" id="1_xa8ax"]
+[ext_resource type="Texture2D" uid="uid://bhxr2jrq60juc" path="res://Art/gunner.png" id="1_xa8ax"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vp48l"]
-radius = 75.0
+radius = 50.0
 
 [node name="Gunner" type="RigidBody2D"]
+gravity_scale = 0.0
 
 [node name="Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vp48l")

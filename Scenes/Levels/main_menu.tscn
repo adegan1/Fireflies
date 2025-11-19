@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dde4tjt146seb"]
+[gd_scene load_steps=10 format=3 uid="uid://dde4tjt146seb"]
 
 [ext_resource type="Script" uid="uid://5562vljqh1gc" path="res://Scripts/main_menu.gd" id="1_b7svq"]
+[ext_resource type="Texture2D" uid="uid://cog61eaij0vfm" path="res://Art/Ground-9564.jpg" id="2_6yab0"]
 [ext_resource type="Texture2D" uid="uid://b35s5vr3oljqw" path="res://Art/icon.svg" id="2_wnywc"]
 [ext_resource type="Texture2D" uid="uid://dp7fuyd1nxood" path="res://Art/M_Play.png" id="3_6yab0"]
 [ext_resource type="Texture2D" uid="uid://idh4geq1oj" path="res://Art/U_Chip.png" id="4_w64ul"]
@@ -18,7 +19,7 @@ script = ExtResource("1_b7svq")
 [node name="TitleBG" type="TextureRect" parent="CanvasLayer"]
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("2_wnywc")
+texture = ExtResource("2_6yab0")
 
 [node name="Buttons" type="Control" parent="CanvasLayer"]
 layout_mode = 3
