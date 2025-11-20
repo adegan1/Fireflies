@@ -6,12 +6,12 @@ signal restart_clicked
 @onready var button: Button = $Control/Button
 
 var insults = [
-	"Pathetic",
+	"Pathetic.",
 	"Is that all?",
-	"Disappointing",
-	"Try again",
-	"You can do better",
-	"Weakness disgusts me"
+	"Disappointing.",
+	"Tsk, try again.",
+	"You can do better.",
+	"Weakness disgusts me."
 ]
 
 func _ready() -> void:
@@ -26,9 +26,13 @@ func _ready() -> void:
 
 func _on_restart_pressed() -> void:
 	print("Restart button pressed!")
-	# Unpause and signal the level to reset
+
+	# Unpause the game
 	get_tree().paused = false
-	emit_signal("restart_clicked")
+
+	# Reload the current scene
+	get_tree().reload_current_scene()
+
 	queue_free()
 
 

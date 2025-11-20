@@ -1,14 +1,6 @@
 extends CharacterBody2D
-
 signal died
 
-@export var speed: float = 500
-@export var max_exposure_time: float = 2.0
-@export var recovery_rate: float = 2.0 # Multiplier for recovery speed
-@export var vignette: ColorRect # Assign this in the inspector
-
-var current_exposure: float = 0.0
-var enemies_touching: int = 0
 
 # ---------- Initial Variables ----------
 # Movement Tuning
@@ -35,6 +27,14 @@ var enemies_touching: int = 0
 var glow_value: float = 1.0		# Current brightness
 var target_glow: float = 1.0	# Where brightness is trying to go
 
+# Player life variables
+@export var max_exposure_time: float = 2.0
+@export var recovery_rate: float = 2.0		# Multiplier for recovery speed
+@export var vignette: ColorRect		# Assign this in the inspector
+
+var current_exposure: float = 0.0
+var enemies_touching: int = 0
+
 # Light area around player
 @export var proximity_area: Area2D
 var proximity_shape: CollisionShape2D
@@ -48,41 +48,8 @@ var proximity_circle: CircleShape2D
 var input_direction := Vector2.ZERO
 var noise := FastNoiseLite.new()
 var time_passed := 0.0
-
+	
 func _ready() -> void:
-	# Seed noise for per-player natural variation
-	noise.seed = randi()
-	
-	global_position = global_position + input_vector.normalized() * delta * speed
-	
-	_process_exposure(delta)
-
-func _process_exposure(delta: float) -> void:
-	if enemies_touching > 0:
-		current_exposure += delta
-		if current_exposure >= max_exposure_time:
-			die()
-	else:
-		current_exposure -= delta * recovery_rate
-	
-	current_exposure = clamp(current_exposure, 0.0, max_exposure_time)
-	
-	# Update Vignette Opacity
-	if vignette:
-		var opacity = current_exposure / max_exposure_time
-		vignette.color.a = opacity * 0.8 # Max opacity 0.8
-
-func start_contact() -> void:
-	enemies_touching += 1
-
-func end_contact() -> void:
-	enemies_touching -= 1
-	if enemies_touching < 0:
-		enemies_touching = 0
-
-func die() -> void:
-	emit_signal("died")
-	queue_free()
 	# Get the shape as a CircleShape2D
 	proximity_shape = proximity_area.get_node("CollisionShape2D") as CollisionShape2D
 	proximity_circle = proximity_shape.shape as CircleShape2D
@@ -97,6 +64,7 @@ func _physics_process(delta: float) -> void:
 	_apply_momentum(delta)
 	_apply_flutter(delta)
 	_apply_glow(delta)
+	_process_exposure(delta)
 
 	# Move the player using velocity property
 	move_and_slide()
@@ -188,3 +156,32 @@ func _apply_flutter(delta: float) -> void:
 		# Slight overshoot clamp to avoid runaway speeds
 		if velocity.length() > base_max_speed * 1.2:
 			velocity = velocity.normalized() * base_max_speed * 1.2
+
+
+# ---------- Player Damage ----------
+func _process_exposure(delta: float) -> void:
+	if enemies_touching > 0:
+		current_exposure += delta
+		if current_exposure >= max_exposure_time:
+			die()
+	else:
+		current_exposure -= delta * recovery_rate
+	
+	current_exposure = clamp(current_exposure, 0.0, max_exposure_time)
+	
+	# Update Vignette Opacity
+	if vignette:
+		var opacity = current_exposure / max_exposure_time
+		vignette.color.a = opacity * 0.8 # Max opacity 0.8
+
+func start_contact() -> void:
+	enemies_touching += 1
+
+func end_contact() -> void:
+	enemies_touching -= 1
+	if enemies_touching < 0:
+		enemies_touching = 0
+
+func die() -> void:
+	emit_signal("died")
+	queue_free()
