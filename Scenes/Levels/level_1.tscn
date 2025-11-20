@@ -29,20 +29,91 @@ position = Vector2(1285, 790)
 [node name="Obstacles" type="Node2D" parent="."]
 
 [node name="Obstacle" parent="Obstacles" instance=ExtResource("4_xgxfi")]
-position = Vector2(1285, 290)
+position = Vector2(1287, 59)
+
+[node name="Obstacle2" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(1287, 186)
+
+[node name="Obstacle3" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(1287, 313)
+
+[node name="Obstacle4" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(1287, 440)
+
+[node name="Obstacle5" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(736, 640)
+
+[node name="Obstacle6" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(736, 767)
+
+[node name="Obstacle7" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(736, 894)
+
+[node name="Obstacle8" parent="Obstacles" instance=ExtResource("4_xgxfi")]
+position = Vector2(736, 1021)
 
 [node name="Swarm" type="Node2D" parent="."]
 
 [node name="Shambler" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(900, 191)
+position = Vector2(1079, 214)
+
+[node name="Shambler2" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(909, 126)
+
+[node name="Shambler3" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1782, 957)
+
+[node name="Shambler4" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1820, 820)
+
+[node name="Shambler5" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(119, 124)
+
+[node name="Shambler6" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(574, 984)
+
+[node name="Shambler7" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1454, 169)
+
+[node name="Shambler8" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1087, 635)
+
+[node name="Shambler9" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1569, 467)
+
+[node name="Shambler10" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(648, 420)
+
+[node name="Shambler11" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1174, 958)
+
+[node name="Shambler12" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(971, 907)
+
+[node name="Shambler13" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1362, 607)
+
+[node name="Shambler14" parent="Swarm" instance=ExtResource("4_5f3p6")]
+position = Vector2(1823, 137)
 
 [node name="Gunner Spawner" parent="." instance=ExtResource("5_jv26f")]
+visible = false
 
 [node name="Gunner" parent="Gunner Spawner" instance=ExtResource("8_jv26f")]
 position = Vector2(602, 860)
 
 [node name="Goal" parent="." instance=ExtResource("9_rb0md")]
 position = Vector2(1645, 69)
+
+[node name="Label" type="Label" parent="Goal"]
+offset_left = -1633.0
+offset_top = 826.0
+offset_right = -1563.0
+offset_bottom = 901.0
+scale = Vector2(2.9432354, 2.192624)
+text = "Controls:
+WASD
+Q + E"
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="level_won" from="Goal" to="." method="_on_goal_level_won"]
