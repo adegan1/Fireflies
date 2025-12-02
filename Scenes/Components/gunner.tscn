@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba7e71pmk8yym"]
+[gd_scene load_steps=5 format=3 uid="uid://ba7e71pmk8yym"]
 
+[ext_resource type="Script" uid="uid://bbwhrlphc864n" path="res://Scripts/gunner.gd" id="1_vp48l"]
 [ext_resource type="Texture2D" uid="uid://bhxr2jrq60juc" path="res://Art/gunner.png" id="1_xa8ax"]
+[ext_resource type="PackedScene" uid="uid://dnm58t3rw32sw" path="res://Scenes/Components/light_detector.tscn" id="3_751y2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vp48l"]
 radius = 50.0
 
 [node name="Gunner" type="RigidBody2D"]
 gravity_scale = 0.0
+script = ExtResource("1_vp48l")
 
 [node name="Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vp48l")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_xa8ax")
+
+[node name="Light Detector" parent="." instance=ExtResource("3_751y2")]
+
+[connection signal="area_entered" from="Light Detector" to="." method="_on_light_detector_area_entered"]
+[connection signal="area_exited" from="Light Detector" to="." method="_on_light_detector_area_exited"]

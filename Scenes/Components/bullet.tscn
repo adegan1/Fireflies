@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmxj5rdl8knqw"]
+
+[ext_resource type="Script" uid="uid://c3cauksaj87cv" path="res://Scripts/bullet.gd" id="1_1wk8m"]
+[ext_resource type="Texture2D" uid="uid://712ameesghl5" path="res://Art/firefly.png" id="1_mjcmj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nktle"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wk8m"]
+
+[node name="Bullet" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_1wk8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nktle")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_mjcmj")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_1wk8m")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
