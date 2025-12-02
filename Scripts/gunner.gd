@@ -72,10 +72,10 @@ func shoot() -> void:
 		get_tree().get_current_scene().add_child(bullet_instance)
 
 func _on_light_detector_area_entered(area: Area2D) -> void:
-	if (area == spotlight.proximity_area):
+	if (area == spotlight.proximity_area or area == player.proximity_area):
 		defused = true
 		#print("Gunner defused!")
 
 func _on_light_detector_area_exited(area: Area2D) -> void:
-	if (area == spotlight.proximity_area):
+	if (area == spotlight.proximity_area or area == player.proximity_area):
 		defused = false

@@ -6,11 +6,19 @@ signal levelReset
 @export var game_over_ui_scene: PackedScene
 
 func _on_goal_level_won() -> void:
-	emit_signal("levelComplete")
+	if game_over_ui_scene:
+		var ui = game_over_ui_scene.instantiate()
+		ui.player_died = false
+		add_child(ui)
+		# Connect the UI's restart signal to our levelReset signal
+		ui.restart_clicked.connect(func(): emit_signal("levelReset"))
+	else:
+		emit_signal("levelComplete")
 
 func _on_player_died() -> void:
 	if game_over_ui_scene:
 		var ui = game_over_ui_scene.instantiate()
+		ui.player_died = true
 		add_child(ui)
 		# Connect the UI's restart signal to our levelReset signal
 		ui.restart_clicked.connect(func(): emit_signal("levelReset"))

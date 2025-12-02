@@ -167,8 +167,7 @@ func _apply_flutter(delta: float) -> void:
 func _process_exposure(delta: float) -> void:
 	# Count down recovery delay timer
 	recovery_delay_timer = max(recovery_delay_timer - delta, 0.0)
-	
-	print(recovery_delay_timer)
+	#print(recovery_delay_timer)
 	
 	if enemies_touching > 0:
 		current_exposure += delta + (enemies_touching * enemy_quantity_dmg_mult)

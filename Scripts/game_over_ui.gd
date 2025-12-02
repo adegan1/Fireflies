@@ -1,9 +1,13 @@
 extends CanvasLayer
 
 signal restart_clicked
+signal menu_clicked
 
 @onready var label: Label = $Control/ColorRect/Label
-@onready var button: Button = $Control/Button
+@onready var restart_button: Button = $Control/RestartButton
+@onready var menu_button: Button = $Control/MenuButton
+
+var player_died := true
 
 var insults = [
 	"Pathetic.",
@@ -19,11 +23,18 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	if label:
-		label.text = insults.pick_random()
+		if player_died:
+			label.text = insults.pick_random()
+		else:
+			label.text = "Congrats. You proud?"
 	
-	if button:
-		if not button.pressed.is_connected(_on_restart_pressed):
-			button.pressed.connect(_on_restart_pressed)
+	if restart_button:
+		if not restart_button.pressed.is_connected(_on_restart_pressed):
+			restart_button.pressed.connect(_on_restart_pressed)
+	
+	if menu_button:
+		if not menu_button.pressed.is_connected(_on_menu_pressed):
+			menu_button.pressed.connect(_on_menu_pressed)
 
 func _on_restart_pressed() -> void:
 	print("Restart button pressed!")
@@ -36,7 +47,20 @@ func _on_restart_pressed() -> void:
 	queue_free()
 	
 	# Reload the current scene
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_1.tscn")
+	
+func _on_menu_pressed() -> void:
+	print("Menu button pressed!")
+
+	# Unpause the game
+	get_tree().paused = false
+
+	emit_signal("menu_clicked")
+
+	queue_free()
+	
+	# Load the menu scene
+	get_tree().change_scene_to_file("res://Scenes/Levels/main_menu.tscn")
 
 
 func _on_button_pressed() -> void:

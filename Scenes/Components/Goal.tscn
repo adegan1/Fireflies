@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://xmh4qmeqgj4o"]
+[gd_scene load_steps=4 format=3 uid="uid://xmh4qmeqgj4o"]
 
 [ext_resource type="Script" uid="uid://crd1c1kywec2b" path="res://Scripts/goal.gd" id="1_7uh85"]
+[ext_resource type="Texture2D" uid="uid://qsa68uida4xj" path="res://Art/banana_slug.png" id="2_bcoyk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bcoyk"]
 size = Vector2(257, 114.5)
@@ -11,5 +12,10 @@ script = ExtResource("1_7uh85")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(126.5, 54.75)
 shape = SubResource("RectangleShape2D_bcoyk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(126.460686, 54.875)
+scale = Vector2(0.42041206, 0.42041197)
+texture = ExtResource("2_bcoyk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

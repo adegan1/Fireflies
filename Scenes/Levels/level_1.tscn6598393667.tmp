@@ -123,6 +123,7 @@ modulate = Color(1, 1, 1, 0.6862745)
 position = Vector2(1645, 69)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Vignette" type="Sprite2D" parent="CanvasLayer"]
 modulate = Color(0.8634364, 4.3317675e-07, 1.0588765e-06, 1)
@@ -131,12 +132,11 @@ scale = Vector2(1.6, 1.35375)
 texture = ExtResource("10_hwvp3")
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 16.0
-offset_top = 917.0
-offset_right = 234.0
-offset_bottom = 1130.0
-scale = Vector2(0.8517564, 0.7104687)
-theme_override_font_sizes/font_size = 50
+offset_left = 18.0
+offset_top = 904.0
+offset_right = 88.0
+offset_bottom = 979.0
+scale = Vector2(2.9432354, 2.192624)
 text = "Controls:
 WASD
 Q + E"
