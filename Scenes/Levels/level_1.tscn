@@ -97,10 +97,21 @@ position = Vector2(1362, 607)
 position = Vector2(1823, 137)
 
 [node name="Gunner Spawner" parent="." instance=ExtResource("5_jv26f")]
-visible = false
 
-[node name="Gunner" parent="Gunner Spawner" instance=ExtResource("8_jv26f")]
+[node name="Gunner" parent="Gunner Spawner" node_paths=PackedStringArray("player", "spotlight") instance=ExtResource("8_jv26f")]
 position = Vector2(602, 860)
+player = NodePath("../../Player")
+spotlight = NodePath("../../Spotlight")
+
+[node name="Gunner2" parent="Gunner Spawner" node_paths=PackedStringArray("player", "spotlight") instance=ExtResource("8_jv26f")]
+position = Vector2(1135, 100)
+player = NodePath("../../Player")
+spotlight = NodePath("../../Spotlight")
+
+[node name="Gunner3" parent="Gunner Spawner" node_paths=PackedStringArray("player", "spotlight") instance=ExtResource("8_jv26f")]
+position = Vector2(1833, 978)
+player = NodePath("../../Player")
+spotlight = NodePath("../../Spotlight")
 
 [node name="Goal" parent="." instance=ExtResource("9_rb0md")]
 position = Vector2(1645, 69)
