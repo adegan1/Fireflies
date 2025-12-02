@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://np3ylhob30o2"]
+[gd_scene load_steps=14 format=3 uid="uid://np3ylhob30o2"]
 
 [ext_resource type="Script" uid="uid://b83rvdfu3deqp" path="res://Scripts/level.gd" id="1_tlcug"]
 [ext_resource type="Texture2D" uid="uid://cog61eaij0vfm" path="res://Art/Ground-9564.jpg" id="2_5f3p6"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cel1ob8ane6s8" path="res://Scenes/Components/gunner_spawner.tscn" id="5_jv26f"]
 [ext_resource type="PackedScene" uid="uid://ba7e71pmk8yym" path="res://Scenes/Components/gunner.tscn" id="8_jv26f"]
 [ext_resource type="PackedScene" uid="uid://xmh4qmeqgj4o" path="res://Scenes/Components/Goal.tscn" id="9_rb0md"]
+[ext_resource type="Texture2D" uid="uid://ckr3huywucfnm" path="res://Art/vignette.png" id="10_hwvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_border_h"]
 size = Vector2(1920, 50)
@@ -24,6 +25,11 @@ game_over_ui_scene = ExtResource("2_u5ghp")
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("2_5f3p6")
 centered = false
+
+[node name="Player" parent="." node_paths=PackedStringArray("vignette") instance=ExtResource("2_cyadu")]
+position = Vector2(201, 551)
+glow_max = 1.5
+vignette = NodePath("../CanvasLayer/Vignette")
 
 [node name="Borders" type="StaticBody2D" parent="."]
 
@@ -42,10 +48,6 @@ shape = SubResource("RectangleShape2D_border_v")
 [node name="Right" type="CollisionShape2D" parent="Borders"]
 position = Vector2(1945, 540)
 shape = SubResource("RectangleShape2D_border_v")
-
-[node name="Player" parent="." instance=ExtResource("2_cyadu")]
-position = Vector2(128, 540)
-glow_max = 1.5
 
 [node name="Spotlight" parent="." instance=ExtResource("3_xgxfi")]
 position = Vector2(1285, 790)
@@ -79,30 +81,30 @@ position = Vector2(736, 1021)
 [node name="Swarm" type="Node2D" parent="."]
 
 [node name="Shambler" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(1079, 214)
+position = Vector2(1115, 544)
 
 [node name="Shambler2" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(909, 126)
+position = Vector2(924, 690)
 
 [node name="Shambler3" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(1782, 957)
+position = Vector2(1572, 899)
 
 [node name="Shambler4" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(1820, 820)
+position = Vector2(1816, 743)
 
 [node name="Shambler5" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(119, 124)
+position = Vector2(293, 154)
 
 [node name="Shambler6" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(574, 984)
+position = Vector2(366, 997)
 
 [node name="Shambler7" parent="Swarm" instance=ExtResource("4_5f3p6")]
-position = Vector2(1454, 169)
+position = Vector2(1555, 358)
 
 [node name="Gunner Spawner" parent="." instance=ExtResource("5_jv26f")]
 
 [node name="Gunner" parent="Gunner Spawner" node_paths=PackedStringArray("player", "spotlight") instance=ExtResource("8_jv26f")]
-position = Vector2(602, 860)
+position = Vector2(589, 997)
 player = NodePath("../../Player")
 spotlight = NodePath("../../Spotlight")
 
@@ -112,22 +114,30 @@ player = NodePath("../../Player")
 spotlight = NodePath("../../Spotlight")
 
 [node name="Gunner3" parent="Gunner Spawner" node_paths=PackedStringArray("player", "spotlight") instance=ExtResource("8_jv26f")]
-position = Vector2(1833, 978)
+position = Vector2(1833, 974)
 player = NodePath("../../Player")
 spotlight = NodePath("../../Spotlight")
 
-[node name="Goal" parent="." instance=ExtResource("9_rb0md")]
-position = Vector2(1645, 69)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="Goal"]
-offset_left = -1633.0
-offset_top = 826.0
-offset_right = -1563.0
-offset_bottom = 901.0
+[node name="Vignette" type="Sprite2D" parent="CanvasLayer"]
+modulate = Color(0.85490197, 0, 0, 1)
+position = Vector2(960, 540.5)
+scale = Vector2(1.6, 1.35375)
+texture = ExtResource("10_hwvp3")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 18.0
+offset_top = 904.0
+offset_right = 88.0
+offset_bottom = 979.0
 scale = Vector2(2.9432354, 2.192624)
 text = "Controls:
 WASD
 Q + E"
+
+[node name="Goal" parent="." instance=ExtResource("9_rb0md")]
+position = Vector2(1645, 69)
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="level_won" from="Goal" to="." method="_on_goal_level_won"]

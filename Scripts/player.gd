@@ -28,12 +28,15 @@ var glow_value: float = 1.0		# Current brightness
 var target_glow: float = 1.0	# Where brightness is trying to go
 
 # Player life variables
-@export var max_exposure_time: float = 2.0
+@export var max_exposure_time: float = 2.5
 @export var recovery_rate: float = 2.0		# Multiplier for recovery speed
-@export var vignette: ColorRect		# Assign this in the inspector
+@export var vignette: Sprite2D		# Assign this in the inspector
+@export var enemy_quantity_dmg_mult: float = 0.01
 
 var current_exposure: float = 0.0
 var enemies_touching: int = 0
+@export var recovery_delay: float = 1.0
+var recovery_delay_timer: float = 0.0
 
 # Light area around player
 @export var proximity_area: Area2D
@@ -162,19 +165,25 @@ func _apply_flutter(delta: float) -> void:
 
 # ---------- Player Damage ----------
 func _process_exposure(delta: float) -> void:
+	# Count down recovery delay timer
+	recovery_delay_timer = max(recovery_delay_timer - delta, 0.0)
+	
+	print(recovery_delay_timer)
+	
 	if enemies_touching > 0:
-		current_exposure += delta
+		current_exposure += delta + (enemies_touching * enemy_quantity_dmg_mult)
 		if current_exposure >= max_exposure_time:
 			die()
 	else:
-		current_exposure -= delta * recovery_rate
+		if (recovery_delay_timer <= 0.0):
+			current_exposure -= delta * recovery_rate
 	
 	current_exposure = clamp(current_exposure, 0.0, max_exposure_time)
 	
 	# Update Vignette Opacity
 	if vignette:
 		var opacity = current_exposure / max_exposure_time
-		vignette.color.a = opacity * 0.8 # Max opacity 0.8
+		vignette.modulate.a = opacity * 0.8 # Max opacity 0.8
 
 func start_contact() -> void:
 	enemies_touching += 1
@@ -183,6 +192,8 @@ func end_contact() -> void:
 	enemies_touching -= 1
 	if enemies_touching < 0:
 		enemies_touching = 0
+		
+	recovery_delay_timer = recovery_delay
 
 func die() -> void:
 	emit_signal("died")
