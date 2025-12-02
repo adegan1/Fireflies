@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var spotlight: Node2D
 
 @export var shootDelay: float = 2.0
-@export var shootingRange: float = 500.0
+@export var shootingRange: float = 750.0
 @export var bulletSpeed: float = 250.0
 
 var inRange: bool = false
